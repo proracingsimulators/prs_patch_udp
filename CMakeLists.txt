@@ -9,4 +9,6 @@ add_executable(Prs_Patch_Udp
     main.cpp
 )
 
+set(CMAKE_EXE_LINKER_FLAGS "-static")
+
 target_link_libraries(Prs_Patch_Udp ws2_32)
