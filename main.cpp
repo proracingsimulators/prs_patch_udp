@@ -31,9 +31,13 @@ int main() {
     data.pitch = 2.0;
     data.heave = 3.0;
     data.yaw = 4.0;
-    data.surge = 5.0;
-    data.tractionLoss = 6.0;
-    data.gear = 7;
+    data.sway = 5.0;
+    data.surge = 6.0;
+    data.tractionLoss = 7.0;
+    data.gear = 8;
+
+    printf("Client started. Writing to server:\n");
+    printf("Roll | Pitch | Heave | Yaw | Sway | Surge | Loss | Gear |\n");
 
     while (true) {
         int bytesSent = sendto(clientSocket, (char*)&data, sizeof(data), 0, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
@@ -41,6 +45,16 @@ int main() {
             std::cerr << "Error sending data." << std::endl;
             return 1;
         }
+        printf("%f | %f | %f | %f | %f | %f | %f | %d |\n",
+            data.roll,
+            data.pitch,
+            data.heave,
+            data.yaw,
+            data.sway,
+            data.surge,
+            data.tractionLoss,
+            data.gear
+        );
         Sleep(50);
     }
 
