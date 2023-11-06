@@ -45,7 +45,7 @@ int main() {
         int bytesSent = sendto(clientSocket, (char*)&data, sizeof(data), 0, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
         #else
         char str[512];
-        int size = sprintf(str, "%f-%f-%f-%f-%f-%f-%f-%d", 
+        int size = sprintf(str, "%f_%f_%f_%f_%f_%f_%f_%d", 
             data.roll,
             data.pitch,
             data.heave,
