@@ -6,6 +6,7 @@
 
 #define UDP_PORT 53520
 #define SERVER_IP "127.0.0.1"
+#define VERSION 2
 
 int main() {
     WSADATA wsaData;
@@ -40,7 +41,22 @@ int main() {
     printf("Roll | Pitch | Heave | Yaw | Sway | Surge | Loss | Gear |\n");
 
     while (true) {
+        #if VERSION == 1
         int bytesSent = sendto(clientSocket, (char*)&data, sizeof(data), 0, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
+        #else
+        char str[512];
+        int size = sprintf(str, "%f-%f-%f-%f-%f-%f-%f-%d", 
+            data.roll,
+            data.pitch,
+            data.heave,
+            data.yaw,
+            data.sway,
+            data.surge,
+            data.tractionLoss,
+            data.gear
+        );
+        int bytesSent = sendto(clientSocket, str, size, 0, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
+        #endif
         if (bytesSent == SOCKET_ERROR) {
             std::cerr << "Error sending data." << std::endl;
             return 1;
