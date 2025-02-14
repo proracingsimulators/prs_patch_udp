@@ -7,10 +7,10 @@ port = 53520
 
 class TelemetryData:
     def __init__(self):
-        self.roll = 1.0
-        self.pitch = 2.0
-        self.heave = 3.0
-        self.yaw = 4.0
+        self.roll = -1.0
+        self.pitch = -2.0
+        self.heave = -3.0
+        self.yaw = -4.0
         self.sway = 5.0
         self.surge = 6.0
         self.tractionLoss = 7.0
@@ -28,7 +28,7 @@ def main():
     server_address = ('localhost', port)
 
     while True:
-        data_str = f"{data.roll}-{data.pitch}-{data.heave}-{data.yaw}-{data.sway}-{data.surge}-{data.tractionLoss}-{data.gear}"
+        data_str = f"{data.roll};{data.pitch};{data.heave};{data.yaw};{data.sway};{data.surge};{data.tractionLoss};{data.gear}"
         client_socket.sendto(data_str.encode('utf-8'), server_address)
         print(data_str)
         time.sleep(0.01)
